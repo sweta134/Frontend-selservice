@@ -1,0 +1,10 @@
+[
+    {
+        "student_id": "AIS16",
+        "current_dues": 2458,
+        "previous_dues": 7895,
+        "upcoming_dues": 6666,
+        "total_payment": 4586,
+        "total_commitment": 7896
+    }
+]

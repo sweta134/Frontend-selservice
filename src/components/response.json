@@ -1,0 +1,14 @@
+[
+    {
+        "Transaction_date": "2021-10-31T05:50:58.000Z",
+        "Receipt_ID": "AIS0026",
+        "Paid_amount": 12000,
+        "mode": "CARD"
+    },
+    {
+        "Transaction_date": "2021-10-31T05:52:11.000Z",
+        "Receipt_ID": "AIS0027",
+        "Paid_amount": 12000,
+        "mode": "NEFT"
+    }
+]
