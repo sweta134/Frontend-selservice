@@ -23,6 +23,8 @@ import './components/CSS/bootstrap.min.css';
 import Dashboard from './components/Dashboard';
 import Footer from './components/Footer';
 import Current from './components/Current';
+import Previous from './components/Previous';
+import Upcoming from './components/Upcoming';
 import Transaction from './components/Transaction';
 function App() {
   return (
@@ -50,6 +52,16 @@ function App() {
           <Route path="/current">
             <Header />
             <Current />
+            <Footer />
+          </Route>
+          <Route path="/previous">
+            <Header />
+            <Previous />
+            <Footer />
+          </Route>
+          <Route path="/upcoming">
+            <Header />
+            <Upcoming />
             <Footer />
           </Route>
           <Route path="/Transaction">

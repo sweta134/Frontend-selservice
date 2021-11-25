@@ -5,26 +5,43 @@ import './CSS/Navbar.css'
 import './CSS/styprev.css'
 import { Accordion } from 'react-bootstrap'
 
-export default function Current() {
+export default function Previous() {
 
-    const [currentDetails, setCurrentDetails] = useState([""]);
+    const [previousDetails, setpreviousDetails] = useState([""]);
 
     const getProductData = async () => {
 
         const data = await axios.post(
-            "http://localhost:4000/get_current_due_detail/"
+            "http://localhost:4000/get_previous_due_detail/"
         );
         // console.log(data.data);
-        setCurrentDetails(data.data.data);
+        setpreviousDetails(data.data.data);
     };
-    // console.log(currentDetails);
+    console.log(previousDetails);
 
     useEffect(() => {
         getProductData();
     }, []);
 
 
-    const listItems = currentDetails.map((info) =>
+    const [previousDetailsSecond, setpreviousDetailsSecond] = useState([""]);
+
+    const getProductDataSecond = async () => {
+
+        const data = await axios.post(
+            "http://localhost:4000/get_previous_due_detail_secondTable/"
+        );
+        // console.log(data.data);
+        setpreviousDetailsSecond(data.data.data);
+    };
+    console.log(previousDetailsSecond);
+
+    useEffect(() => {
+        getProductDataSecond();
+    }, []);
+
+
+    const listItems = previousDetails.map((info) =>
         <tr>
             <th scope="row">{info.slno}</th>
             <td>{info.component_name}</td>
@@ -33,20 +50,34 @@ export default function Current() {
     );
 
     let totalAmount = 0;
-    for (const key in currentDetails) {
-        totalAmount += currentDetails[key].amount;   
+    for (const key in previousDetails) {
+        totalAmount += previousDetails[key].amount;   
+    }
+    
+
+    const listItems2 = previousDetailsSecond.map((info) =>
+        <tr>
+            <th scope="row">{info.slno}</th>
+            <td>{info.component_name}</td>
+            <td>{info.amount}</td>
+        </tr>
+    );
+
+    let totalAmountSecond = 0;
+    for (const key in previousDetailsSecond) {
+        totalAmountSecond += previousDetailsSecond[key].amount;   
     }
 
     return (
         <>
             <div className="container">
                 <Accordion>
-                    <h1 className="heading">Current Dues</h1>
+                    <h1 className="heading">Previous Dues</h1>
                     <Accordion.Item eventKey="0">
                         <div className="container-extra" id="flush-headingOne">
                             <h2>  Installment Date: July 13,2020{'{'}Rs. {totalAmount}{'}'}
                                 <br />
-                                Invoice No. {currentDetails[0].invoice_no}</h2>
+                                Invoice No. {previousDetails[0].invoice_no}</h2>
                         </div>
                         <Accordion.Header>
                             Show Details
@@ -66,17 +97,18 @@ export default function Current() {
                                     <tr>
                                         <th scope="row">6</th>
                                         <td>Total Payment</td>
-                                        <td>{totalAmount}</td>
+                                        <td>{totalAmountSecond}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </Accordion.Body>
                     </Accordion.Item>
+
                     <Accordion.Item eventKey="1">
                         <div className="container-extra" id="flush-headingOne">
-                            <h2>  Installment Date: July 13,2020{'{'}Rs. XXXXX{'}'}
+                            <h2>  Installment Date: July 13,2020{'{'}Rs. {totalAmountSecond}{'}'}
                                 <br />
-                                Invoice No. 1234567890</h2>
+                                Invoice No. {previousDetailsSecond[0].invoice_no}</h2>
                         </div>
                         <Accordion.Header>
                             Show Details
@@ -92,41 +124,19 @@ export default function Current() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Tution Fee</td>
-                                        <td>xxxx</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Lunch and Refreshment Charges</td>
-                                        <td>xxxx</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Sports and Extra Curricular Activities</td>
-                                        <td>xxxx</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>Digitalisation charges</td>
-                                        <td>xxxx</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td>Transport Fees</td>
-                                        <td>xxxx</td>
-                                    </tr>
+                                {listItems2}
+                                    
                                     <tr>
                                         <th scope="row">6</th>
                                         <td>Total Payment</td>
-                                        <td>xxxxx</td>
+                                        <td>{totalAmountSecond}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </Accordion.Body>
                     </Accordion.Item>
-                    <Accordion.Item eventKey="2" className="mb-5">
+                    
+                    {/* <Accordion.Item eventKey="2" className="mb-5">
                         <div className="container-extra" id="flush-headingOne">
                             <h2>  Installment Date: July 13,2020{'{'}Rs. XXXXX{'}'}
                                 <br />
@@ -179,7 +189,7 @@ export default function Current() {
                                 </tbody>
                             </table>
                         </Accordion.Body>
-                    </Accordion.Item>
+                    </Accordion.Item> */}
                     {/* <Accordion.Item eventKey="1">
                         <Accordion.Header className="container-extra" >
                             <div className="container-extra"  id="flush-headingOne">

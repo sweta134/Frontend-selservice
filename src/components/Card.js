@@ -2,31 +2,67 @@ import React from 'react'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom'
-import JsonData from './Current.json'
 
 export default function Card() {
     const history = useHistory();
     const addOnClick = () => {
         history.push("/current")
     }
+    const addOnClickPrevious = () => {
+        history.push("/previous")
+    }
+    const addOnClickUpcoming = () => {
+        history.push("/upcoming")
+    }
     const viewOnClick = () => {
         history.push("/Transaction")
     }
 
-    const [value, setValue] = useState([]);
+    const [currentValue, setCrrentValue] = useState([""]);
+    const [previousValue, setPreviousValue] = useState([""]);
+    const [upcomingValue, setUpcomingValue] = useState([""]);
 
-    const getProductData = async () => {
+    const getCurrentData = async () => {
 
         const data = await axios.post(
-            "http://localhost:4000/get_dashboard_data/"
+            "http://localhost:4000/get_current_due_detail_sum/"
         );
-        // console.log(data.data.data);
-        setValue(data.data.data);
+        // console.log(data);
+        setCrrentValue(data.data.data);
+    };
+    console.log(currentValue);
+    useEffect(() => {
+        getCurrentData();
+    }, []);
+
+
+    const getPreviousData = async () => {
+
+        const data = await axios.post(
+            "http://localhost:4000/get_previous_due_detail_sum/"
+        );
+        // console.log(data);
+        setPreviousValue(data.data.data);
     };
     // console.log(value);
-
+    
     useEffect(() => {
-        getProductData();
+        getPreviousData();
+    }, []);
+
+
+    const getUpcomingData = async () => {
+
+        const data = await axios.post(
+            "http://localhost:4000/get_upcoming_due_detail_sum/"
+        );
+        // console.log(data);
+        setUpcomingValue(data.data.data);
+    };
+    // console.log(value);
+    
+    useEffect(() => {
+        getUpcomingData();
     }, []);
 
 
@@ -43,7 +79,7 @@ export default function Card() {
                                 CURRENT DUES
                             </h6>
                             <p className="card-text">
-                                ₹ {value.Current_due} </p>
+                                ₹ {currentValue[0].Current_Due} </p>
 
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClick}>
@@ -60,9 +96,9 @@ export default function Card() {
                                 PREVIOUS DUES
                             </h6>
                             <p className="card-text">
-                                            ₹ {value.Previous_due} </p>
+                                            ₹ {previousValue[0].Previous_Due} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
-                                <a className="card-link linkBtn">
+                                <a className="card-link linkBtn" onClick={addOnClickPrevious}>
                                     VIEW DETAILS</a>
                                 <a href="checkout.html" className="card-link linkBtn">PAY NOW</a>
                             </div>
@@ -78,9 +114,9 @@ export default function Card() {
                                 UPCOMING DUES
                             </h6>
                             <p className="card-text">
-                                            ₹ {value.upcoming_due} </p>
+                                            ₹ {upcomingValue[0].Upcoming_Due} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
-                                <a className="card-link linkBtn">
+                                <a className="card-link linkBtn" onClick={addOnClickUpcoming}>
                                     VIEW DETAILS</a>
                                 <a href="checkout.html" className="card-link linkBtn">PAY NOW</a>
                             </div>
@@ -94,7 +130,7 @@ export default function Card() {
                                 TOTAL PAYMENT
                             </h6>
                             <p className="card-text">
-                                            ₹ {value.total_payment} </p>
+                                            ₹ </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn">
                                     VIEW DETAILS</a>
@@ -112,7 +148,7 @@ export default function Card() {
                                 TOTAL COMMITMENT
                             </h6>
                             <p className="card-text">
-                                            ₹ {value.total_commitment} </p>
+                                            ₹  </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn">
                                     VIEW DETAILS</a>
