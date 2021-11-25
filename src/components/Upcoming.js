@@ -5,26 +5,26 @@ import './CSS/Navbar.css'
 import './CSS/styprev.css'
 import { Accordion } from 'react-bootstrap'
 
-export default function Current() {
+export default function Upcoming() {
 
-    const [currentDetails, setCurrentDetails] = useState([""]);
+    const [upcomingDetails, setupcomingDetails] = useState([""]);
 
     const getProductData = async () => {
 
         const data = await axios.post(
-            "http://localhost:4000/get_current_due_detail/"
+            "http://localhost:4000/get_upcoming_due_detail/"
         );
         // console.log(data.data);
-        setCurrentDetails(data.data.data);
+        setupcomingDetails(data.data.data);
     };
-    // console.log(currentDetails);
+    // console.log(upcomingDetails);
 
     useEffect(() => {
         getProductData();
     }, []);
 
 
-    const listItems = currentDetails.map((info) =>
+    const listItems = upcomingDetails.map((info) =>
         <tr>
             <th scope="row">{info.slno}</th>
             <td>{info.component_name}</td>
@@ -33,20 +33,20 @@ export default function Current() {
     );
 
     let totalAmount = 0;
-    for (const key in currentDetails) {
-        totalAmount += currentDetails[key].amount;   
+    for (const key in upcomingDetails) {
+        totalAmount += upcomingDetails[key].amount;   
     }
 
     return (
         <>
             <div className="container">
                 <Accordion>
-                    <h1 className="heading">Current Dues</h1>
+                    <h1 className="heading">Previous Dues</h1>
                     <Accordion.Item eventKey="0">
                         <div className="container-extra" id="flush-headingOne">
                             <h2>  Installment Date: July 13,2020{'{'}Rs. {totalAmount}{'}'}
                                 <br />
-                                Invoice No. {currentDetails[0].invoice_no}</h2>
+                                Invoice No. {upcomingDetails[0].invoice_no}</h2>
                         </div>
                         <Accordion.Header>
                             Show Details
