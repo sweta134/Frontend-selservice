@@ -25,45 +25,45 @@ export default function Card() {
     const getCurrentData = async () => {
 
         const data = await axios.post(
-            "http://localhost:4000/get_current_due_detail_sum/"
+            "http://localhost:4000/get_dashboard_data/"
         );
         // console.log(data);
         setCrrentValue(data.data.data);
     };
-    console.log(currentValue);
+    // console.log(currentValue);
     useEffect(() => {
         getCurrentData();
     }, []);
 
 
-    const getPreviousData = async () => {
+    // const getPreviousData = async () => {
 
-        const data = await axios.post(
-            "http://localhost:4000/get_previous_due_detail_sum/"
-        );
-        // console.log(data);
-        setPreviousValue(data.data.data);
-    };
-    // console.log(value);
+    //     const data = await axios.post(
+    //         "http://localhost:4000/get_dashboard_data/"
+    //     );
+    //     // console.log(data);
+    //     setPreviousValue(data.data.data);
+    // };
+    // // console.log(value);
     
-    useEffect(() => {
-        getPreviousData();
-    }, []);
+    // useEffect(() => {
+    //     getPreviousData();
+    // }, []);
 
 
-    const getUpcomingData = async () => {
+    // const getUpcomingData = async () => {
 
-        const data = await axios.post(
-            "http://localhost:4000/get_upcoming_due_detail_sum/"
-        );
-        // console.log(data);
-        setUpcomingValue(data.data.data);
-    };
-    // console.log(value);
+    //     const data = await axios.post(
+    //         "http://localhost:4000/get_dashboard_data/"
+    //     );
+    //     // console.log(data);
+    //     setUpcomingValue(data.data.data);
+    // };
+    // // console.log(value);
     
-    useEffect(() => {
-        getUpcomingData();
-    }, []);
+    // useEffect(() => {
+    //     getUpcomingData();
+    // }, []);
 
 
     return (
@@ -79,7 +79,7 @@ export default function Card() {
                                 CURRENT DUES
                             </h6>
                             <p className="card-text">
-                                ₹ {currentValue[0].Current_Due} </p>
+                                ₹ {currentValue.total_due_amount}</p>
 
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClick}>
@@ -96,7 +96,7 @@ export default function Card() {
                                 PREVIOUS DUES
                             </h6>
                             <p className="card-text">
-                                            ₹ {previousValue[0].Previous_Due} </p>
+                                            ₹ {currentValue.total_due_amount} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClickPrevious}>
                                     VIEW DETAILS</a>
@@ -114,7 +114,7 @@ export default function Card() {
                                 UPCOMING DUES
                             </h6>
                             <p className="card-text">
-                                            ₹ {upcomingValue[0].Upcoming_Due} </p>
+                                            ₹  </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClickUpcoming}>
                                     VIEW DETAILS</a>
