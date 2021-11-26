@@ -3,7 +3,16 @@
         "Transaction_date": "2021-10-31T05:50:58.000Z",
         "Receipt_ID": "AIS0026",
         "Paid_amount": 12000,
-        "mode": "CARD"
+        "mode": [
+            {
+                "student_id": "AIS16",
+                "current_dues": 2458,
+                "previous_dues": 7895,
+                "upcoming_dues": 6666,
+                "total_payment": 4586,
+                "total_commitment": 7896
+            }
+        ]
     },
     {
         "Transaction_date": "2021-10-31T05:52:11.000Z",
