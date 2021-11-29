@@ -64,7 +64,7 @@ function App() {
             <Upcoming />
             <Footer />
           </Route>
-          <Route path="/Transaction">
+          <Route path="/transaction">
             <Header />
             <Transaction />
             <Footer />
