@@ -1,20 +1,19 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import axios from "axios";
 import { useEffect } from "react";
 import './CSS/Navbar.css'
 import './CSS/styprev.css'
 import { Accordion } from 'react-bootstrap'
-import { render } from '@testing-library/react';
 
 export default function Previous() {
 
-    const [previousDetails, setpreviousDetails] = useState([""]);
+    // const [previousDetails, setpreviousDetails] = useState([""]);
     const [previousDetailsComp, setpreviousDetailsComp] = useState([""]);
 
     const getProductData = async () => {
 
         const data = await axios.post(
-            "http://localhost:4000/get_dashboard_data/"
+            "http://localhost:4000/get_previous_details/"
         );
         // console.log(data.data);
         // setpreviousDetails(data.data.data.invoices);
@@ -34,8 +33,8 @@ export default function Previous() {
     let compItemsArray = [];
     let allInvoices = [];
     for (const key in previousDetailsComp) {
-        console.log("previousDetailsCompt");
-        console.log(previousDetailsComp[key]);
+        // console.log("previousDetailsCompt");
+        // console.log(previousDetailsComp[key]);
         const previousDetailsCompData = previousDetailsComp[key].component_data;
         compItemsArray = [];
         for (const keyData in previousDetailsCompData) {
@@ -61,7 +60,7 @@ export default function Previous() {
         <Accordion.Item eventKey= {key}>
                 {/* {counter += 1} */}
                 <div className="container-extra" id="flush-heading{key}">
-                    <h2>  Installment Date: July 13,2020{'{'}Rs. {previousDetailsComp[key].total_amount}{'}'}
+                    <h2>  Installment Date: {previousDetailsComp[key].payable_date}{'{'}Rs. {previousDetailsComp[key].total_amount}{'}'}
                         <br />
                         Invoice No. {previousDetailsComp[key].invoice_id}</h2>
 
@@ -109,11 +108,25 @@ export default function Previous() {
             </Accordion>
         </div>
     )
+
+    var payButton ;
+    if (allInvoices.length === 0) {
+        payButton = <h3 className="heading">there is no Previous Dues</h3>;
+    } 
+    else {
+        payButton =(
+            <>
+                {component}
+                <button className="btn btn-primary pay-btn">Pay</button>
+            </>
+        )
+
+    }
+
     return (
         <>
             
-            {component}
-            <button class="btn btn-primary pay-btn">Pay</button>
+            {payButton}
         </>
     )
 }

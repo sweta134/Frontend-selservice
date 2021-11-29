@@ -15,22 +15,32 @@ export default function Card() {
         history.push("/upcoming")
     }
     const viewOnClick = () => {
-        history.push("/Transaction")
+        history.push("/transaction")
     }
 
     const [currentValue, setCrrentValue] = useState([""]);
     const [previousValue, setPreviousValue] = useState([""]);
     const [upcomingValue, setUpcomingValue] = useState([""]);
+    const [totalPaymentValue, setTotalPaymentValue] = useState([""]);
+    const [totalCommitmentValue, setTotalCommitmentValue] = useState([""]);
 
     const getCurrentData = async () => {
 
         const data = await axios.post(
-            "http://localhost:4000/get_dashboard_data/"
+            "http://localhost:4000/get_dashboard_details/"
         );
         // console.log(data);
-        setCrrentValue(data.data.data);
+        setCrrentValue(data.data.Current_Due_Module);
+        setPreviousValue(data.data.Previous_Due_Module);
+        setUpcomingValue(data.data.Upcoming_Due_Module);
+        setTotalPaymentValue(data.data.Total_payment_Module);
+        setTotalCommitmentValue(data.data.Total_Commitment_module);
     };
     // console.log(currentValue);
+    // console.log(previousValue);
+    console.log(totalCommitmentValue);
+    // console.log(currentValue[0].CURRENT_DUE);
+    
     useEffect(() => {
         getCurrentData();
     }, []);
@@ -79,7 +89,7 @@ export default function Card() {
                                 CURRENT DUES
                             </h6>
                             <p className="card-text">
-                                ₹ {currentValue.total_due_amount}</p>
+                                 {(currentValue[0].CURRENT_DUE === null) ? "No Due" : <>₹ {currentValue[0].CURRENT_DUE}</>}</p>
 
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClick}>
@@ -96,7 +106,7 @@ export default function Card() {
                                 PREVIOUS DUES
                             </h6>
                             <p className="card-text">
-                                            ₹ {currentValue.total_due_amount} </p>
+                            {(previousValue[0].PREVIOUS_DUE === null) ? "No Due" : <>₹ {previousValue[0].PREVIOUS_DUE}</>} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClickPrevious}>
                                     VIEW DETAILS</a>
@@ -114,7 +124,7 @@ export default function Card() {
                                 UPCOMING DUES
                             </h6>
                             <p className="card-text">
-                                            ₹  </p>
+                                    {(upcomingValue[0].UPCOMING_DUE === null) ? "No Dues" : <>₹ {upcomingValue[0].UPCOMING_DUE}</>} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClickUpcoming}>
                                     VIEW DETAILS</a>
@@ -130,10 +140,10 @@ export default function Card() {
                                 TOTAL PAYMENT
                             </h6>
                             <p className="card-text">
-                                            ₹ </p>
+                            {(totalPaymentValue[0].TOTAL_PAID_AMOUNT === null) ? "No Dues" : <>₹ {totalPaymentValue[0].TOTAL_PAID_AMOUNT}</>} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
-                                <a className="card-link linkBtn">
-                                    VIEW DETAILS</a>
+                                {/* <a className="card-link linkBtn">
+                                    VIEW DETAILS</a> */}
                             </div>
                             {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
@@ -148,10 +158,10 @@ export default function Card() {
                                 TOTAL COMMITMENT
                             </h6>
                             <p className="card-text">
-                                            ₹  </p>
+                                     {(totalCommitmentValue[0].TOTAL_COMMITMENT === null) ? "No Dues" : <>₹ {totalCommitmentValue[0].TOTAL_COMMITMENT}</>} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
-                                <a className="card-link linkBtn">
-                                    VIEW DETAILS</a>
+                                {/* <a className="card-link linkBtn">
+                                    VIEW DETAILS</a> */}
                             </div>
                             {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
