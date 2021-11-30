@@ -131,7 +131,6 @@ export default function Card() {
                                 <a className="card-link linkBtn">
                                     VIEW DETAILS</a>
                             </div>
-                            {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
                     </div>
                 </div>
@@ -152,7 +151,6 @@ export default function Card() {
                                 <a className="card-link linkBtn">
                                     VIEW DETAILS</a>
                             </div>
-                            {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
                     </div>
 
@@ -171,7 +169,6 @@ export default function Card() {
                                 <a className="card-link linkBtn" onClick={viewOnClick}>
                                     VIEW DETAILS</a>
                             </div>
-                            {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
                     </div>
                 </div>
