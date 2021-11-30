@@ -13,14 +13,7 @@ export default function Login() {
     const [studentid, setstudentid] = useState('');
     const [OTP, setOTP] = useState('');
     const history = useHistory();
-    //   const [text, settext] = useState('');
-    //   String(text)
-    // const textChange=()=>{
-    //   if(text.length>0)
-    //   {
-    //     setstyling({display: 'block'});
-    //   }
-    //   }
+    
     const handleOnLogin = () => {
         axios.post("http://localhost:4000/verify-otp/", {
             studentid: studentid,

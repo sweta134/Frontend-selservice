@@ -29,51 +29,18 @@ export default function Card() {
         const data = await axios.post(
             "http://localhost:4000/get_dashboard_details/"
         );
-        // console.log(data);
         setCrrentValue(data.data.Current_Due_Module);
         setPreviousValue(data.data.Previous_Due_Module);
         setUpcomingValue(data.data.Upcoming_Due_Module);
         setTotalPaymentValue(data.data.Total_payment_Module);
         setTotalCommitmentValue(data.data.Total_Commitment_module);
     };
-    // console.log(currentValue);
-    // console.log(previousValue);
-    console.log(totalCommitmentValue);
-    // console.log(currentValue[0].CURRENT_DUE);
+    
+    // console.log(totalCommitmentValue);
     
     useEffect(() => {
         getCurrentData();
     }, []);
-
-
-    // const getPreviousData = async () => {
-
-    //     const data = await axios.post(
-    //         "http://localhost:4000/get_dashboard_data/"
-    //     );
-    //     // console.log(data);
-    //     setPreviousValue(data.data.data);
-    // };
-    // // console.log(value);
-    
-    // useEffect(() => {
-    //     getPreviousData();
-    // }, []);
-
-
-    // const getUpcomingData = async () => {
-
-    //     const data = await axios.post(
-    //         "http://localhost:4000/get_dashboard_data/"
-    //     );
-    //     // console.log(data);
-    //     setUpcomingValue(data.data.data);
-    // };
-    // // console.log(value);
-    
-    // useEffect(() => {
-    //     getUpcomingData();
-    // }, []);
 
 
     return (
@@ -89,7 +56,7 @@ export default function Card() {
                                 CURRENT DUES
                             </h6>
                             <p className="card-text">
-                                 {(currentValue[0].CURRENT_DUE === null) ? "No Due" : <>₹ {currentValue[0].CURRENT_DUE}</>}</p>
+                                 {(currentValue[0].CURRENT_DUE === null) ? "No Dues" : <>₹ {currentValue[0].CURRENT_DUE}</>}</p>
 
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClick}>
@@ -106,7 +73,7 @@ export default function Card() {
                                 PREVIOUS DUES
                             </h6>
                             <p className="card-text">
-                            {(previousValue[0].PREVIOUS_DUE === null) ? "No Due" : <>₹ {previousValue[0].PREVIOUS_DUE}</>} </p>
+                            {(previousValue[0].PREVIOUS_DUE === null) ? "No Dues" : <>₹ {previousValue[0].PREVIOUS_DUE}</>} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClickPrevious}>
                                     VIEW DETAILS</a>
@@ -145,7 +112,6 @@ export default function Card() {
                                 <a className="card-link linkBtn">
                                     VIEW DETAILS</a>
                             </div>
-                            {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
                     </div>
                 </div>
@@ -163,7 +129,6 @@ export default function Card() {
                                 <a className="card-link linkBtn">
                                     VIEW DETAILS</a>
                             </div>
-                            {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
                     </div>
                     <div className="card col" style={{ width: 18 + 'rem' }}>
@@ -180,7 +145,6 @@ export default function Card() {
                                 <a className="card-link linkBtn" onClick={viewOnClick}>
                                     VIEW DETAILS</a>
                             </div>
-                            {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
                     </div>
                 </div>

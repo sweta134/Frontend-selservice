@@ -7,42 +7,51 @@ import { Accordion } from 'react-bootstrap'
 
 export default function Upcoming() {
 
-    // const [upcomingDetails, setupcomingDetails] = useState([""]);
+    // using useState for storing the values in 'upcomingDetailsComp', fetching through the 'get_upcoming_details' API  
     const [upcomingDetailsComp, setupcomingDetailsComp] = useState([""]);
 
+    // creating a function 'getProductData' to fetch the data from API 
     const getProductData = async () => {
 
         const data = await axios.post(
             "http://localhost:4000/get_upcoming_details/"
         );
-        // console.log(data.data);
-        // setupcomingDetails(data.data.data.invoices);
         setupcomingDetailsComp(data.data.data.invoices);
     };
-    // console.log(upcomingDetails);
-    console.log(upcomingDetailsComp);
-    console.log("hello");
+    // console.log(upcomingDetailsComp);
 
+    // calling the 'getProductData' function in the 'useEffect' useState function 
     useEffect(() => {
         getProductData();
     }, []);
-
+   
+    // initialising 'compItems' vaiable to store the table data of upcoming VIEW details 
     let compItems;
+   
+    // initialising 'component' vaiable to store the Overall data of upcoming VIEW details 
     let component;
 
+    // initialising 'compItemsArray' array to store the 'compItems' data 
     let compItemsArray = [];
+    
+    // initialising 'allInvoices' array to store the 'component' data 
     let allInvoices = [];
+
+    // using for-in loops to iterate the array of object datas of 'upcomingDetailsComp'
     for (const key in upcomingDetailsComp) {
-        // console.log("upcomingDetailsCompt");
+
         // console.log(upcomingDetailsComp[key]);
+
+        // initialising 'upcomingDetailsCompData' variable to store the data of 'upcomingDetailsComp[key].component_data'
         const upcomingDetailsCompData = upcomingDetailsComp[key].component_data;
         compItemsArray = [];
+
+        // using for-in loops to iterate the array of object datas of 'upcomingDetailsCompData' 
         for (const keyData in upcomingDetailsCompData) {
 
-            // console.log("---------------------------------------------");
             // console.log(upcomingDetailsCompData[keyData]);
-            // console.log("---------------------------------------------");
 
+            // storing the 'upcomingDetailsCompData' values in 'compItems'
             compItems = (
 
                 <tr>
@@ -52,15 +61,18 @@ export default function Upcoming() {
                 </tr>
 
             )
+
+            // pushing the values of 'compItems' into 'compItemsArray'
             compItemsArray.push(compItems);
 
         }
-
+        
+        // creating listItem variabe to store upcomingDetailsComp data and for displaying in the accordion header
         var listItem = (
-            <Accordion.Item eventKey={key}>
+        <Accordion.Item eventKey= {key}>
                 {/* {counter += 1} */}
                 <div className="container-extra" id="flush-heading{key}">
-                    <h2>  Installment Date: July 13,2020{'{'}Rs. {upcomingDetailsComp[key].total_amount}{'}'}
+                    <h2>  Installment Date: {upcomingDetailsComp[key].payable_date}{'{'}Rs. {upcomingDetailsComp[key].total_amount}{'}'}
                         <br />
                         Invoice No. {upcomingDetailsComp[key].invoice_id}</h2>
 
@@ -90,15 +102,16 @@ export default function Upcoming() {
                 </Accordion.Body>
             </Accordion.Item>
         );
-
+      
         // console.log(compItemsArray);
-        // console.log("printing key: " + key + " counter=" + counter);
 
+        // pushing the 'listItem' values in the 'allInvoices' array
         allInvoices.push(listItem);
-
+           
     }
-    // console.log("------------**----------**-------------");
     // console.log(allInvoices);
+
+    // storing values in 'component'
     component = (
 
         <div className="container">
@@ -109,9 +122,11 @@ export default function Upcoming() {
         </div>
     )
 
+
+    // checking if there is any dues or not
     var payButton ;
     if (allInvoices.length === 0) {
-        payButton = <h3 className="heading">There is no Upcoming Dues</h3>;
+        payButton = <h3 className="heading">there is no Upcoming Dues</h3>;
     } 
     else {
         payButton =(
@@ -123,18 +138,11 @@ export default function Upcoming() {
 
     }
 
-    console.log(payButton);
-
     return (
         <>
-
-            {/* <h3 className="heading">there is no Upcoming Dues</h3>
-
-            {component}
-            <button class="btn btn-primary pay-btn">Pay</button> */}
+            
             {payButton}
         </>
     )
 }
-
 

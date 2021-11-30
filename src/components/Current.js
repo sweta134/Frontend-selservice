@@ -7,42 +7,51 @@ import { Accordion } from 'react-bootstrap'
 
 export default function Current() {
 
-    // const [currentDetails, setcurrentDetails] = useState([""]);
+    // using useState for storing the values in 'currentDetailsComp', fetching through the 'get_current_details' API  
     const [currentDetailsComp, setcurrentDetailsComp] = useState([""]);
 
+    // creating a function 'getProductData' to fetch the data from API 
     const getProductData = async () => {
 
         const data = await axios.post(
             "http://localhost:4000/get_current_details/"
         );
-        // console.log(data.data);
-        // setcurrentDetails(data.data.data.invoices);
         setcurrentDetailsComp(data.data.data.invoices);
     };
-    // console.log(currentDetails);
-    console.log(currentDetailsComp);
-    console.log("hello");
+    // console.log(currentDetailsComp);
 
+    // calling the 'getProductData' function in the 'useEffect' useState function 
     useEffect(() => {
         getProductData();
     }, []);
    
+    // initialising 'compItems' vaiable to store the table data of Current VIEW details 
     let compItems;
+   
+    // initialising 'component' vaiable to store the Overall data of Current VIEW details 
     let component;
 
+    // initialising 'compItemsArray' array to store the 'compItems' data 
     let compItemsArray = [];
+    
+    // initialising 'allInvoices' array to store the 'component' data 
     let allInvoices = [];
+
+    // using for-in loops to iterate the array of object datas of 'currentDetailsComp'
     for (const key in currentDetailsComp) {
-        // console.log("currentDetailsCompt");
+
         // console.log(currentDetailsComp[key]);
+
+        // initialising 'currentDetailsCompData' variable to store the data of 'currentDetailsComp[key].component_data'
         const currentDetailsCompData = currentDetailsComp[key].component_data;
         compItemsArray = [];
+
+        // using for-in loops to iterate the array of object datas of 'currentDetailsCompData' 
         for (const keyData in currentDetailsCompData) {
 
-            // console.log("---------------------------------------------");
             // console.log(currentDetailsCompData[keyData]);
-            // console.log("---------------------------------------------");
 
+            // storing the 'currentDetailsCompData' values in 'compItems'
             compItems = (
 
                 <tr>
@@ -52,10 +61,13 @@ export default function Current() {
                 </tr>
 
             )
+
+            // pushing the values of 'compItems' into 'compItemsArray'
             compItemsArray.push(compItems);
 
         }
         
+        // creating listItem variabe to store currentDetailsComp data and for displaying in the accordion header
         var listItem = (
         <Accordion.Item eventKey= {key}>
                 {/* {counter += 1} */}
@@ -92,13 +104,14 @@ export default function Current() {
         );
       
         // console.log(compItemsArray);
-        // console.log("printing key: " + key + " counter=" + counter);
 
+        // pushing the 'listItem' values in the 'allInvoices' array
         allInvoices.push(listItem);
            
     }
-    // console.log("------------**----------**-------------");
     // console.log(allInvoices);
+
+    // storing values in 'component'
     component = (
 
         <div className="container">
@@ -109,6 +122,8 @@ export default function Current() {
         </div>
     )
 
+
+    // checking if there is any dues or not
     var payButton ;
     if (allInvoices.length === 0) {
         payButton = <h3 className="heading">there is no Current Dues</h3>;

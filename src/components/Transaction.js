@@ -3,23 +3,13 @@ import axios from "axios";
 import { useEffect } from "react";
 function Transaction() {
 
-	// const DisplayData = JsonData.map(
-	// 	(info) => {
-	// 		return (
-	// 			<tr>
-	// 				<td>{info.Transaction_date}</td>
-	// 				<td>{info.Receipt_ID}</td>
-	// 				<td>{info.Paid_amount}</td>
-	// 				<td>{info.mode}</td>
-	// 			</tr>
-	// 		)
-	// 	}
-	// )
 
+	// using useState for storing the values in 'transactionComp', fetching through the 'view_transaction_history' API
 	const [transactionComp, setTransactionComp] = useState([""]);
 
 	const getProductData = async () => {
 
+		// creating a function 'getProductData' to fetch the data from API
 		const data = await axios.post(
 			"http://localhost:4000/view_transaction_history/"
 		);
@@ -28,16 +18,23 @@ function Transaction() {
 	};
 	// console.log(transactionComp);
 
+	// calling the 'getProductData' function in the 'useEffect' useState function 
 	useEffect(() => {
 		getProductData();
 	}, []);
 
+	// initialising 'compItems' vaiable to store the table data of previous VIEW details 
 	let compItems;
+
+	// initialising 'compItemsArray' array to store the 'compItems' data 
 	let compItemsArray = [];
 
+	// using for-in loop to iterate the array of object datas of 'transactionComp' 
 	for (const key in transactionComp) {
 
-		console.log(transactionComp[key]);
+		// console.log(transactionComp[key]);
+
+		// storing the 'transactionComp' values in 'compItems' 
 		compItems = (
 
 			<tr>
@@ -49,6 +46,7 @@ function Transaction() {
 
 		)
 
+		// pushing the values of 'compItems' into 'compItemsArray'
 		compItemsArray.push(compItems);
 	}
 
@@ -64,10 +62,7 @@ function Transaction() {
 					</tr>
 				</thead>
 				<tbody>
-
-
 					{compItemsArray}
-
 				</tbody>
 			</table>
 
