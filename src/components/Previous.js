@@ -7,42 +7,51 @@ import { Accordion } from 'react-bootstrap'
 
 export default function Previous() {
 
-    // const [previousDetails, setpreviousDetails] = useState([""]);
+    // using useState for storing the values in 'previousDetailsComp', fetching through the 'get_previous_details' API  
     const [previousDetailsComp, setpreviousDetailsComp] = useState([""]);
 
+    // creating a function 'getProductData' to fetch the data from API 
     const getProductData = async () => {
 
         const data = await axios.post(
             "http://localhost:4000/get_previous_details/"
         );
-        // console.log(data.data);
-        // setpreviousDetails(data.data.data.invoices);
         setpreviousDetailsComp(data.data.data.invoices);
     };
-    // console.log(previousDetails);
-    console.log(previousDetailsComp);
-    console.log("hello");
+    // console.log(previousDetailsComp);
 
+    // calling the 'getProductData' function in the 'useEffect' useState function 
     useEffect(() => {
         getProductData();
     }, []);
    
+    // initialising 'compItems' vaiable to store the table data of previous VIEW details 
     let compItems;
+   
+    // initialising 'component' vaiable to store the Overall data of previous VIEW details 
     let component;
 
+    // initialising 'compItemsArray' array to store the 'compItems' data 
     let compItemsArray = [];
+    
+    // initialising 'allInvoices' array to store the 'component' data 
     let allInvoices = [];
+
+    // using for-in loops to iterate the array of object datas of 'previousDetailsComp'
     for (const key in previousDetailsComp) {
-        // console.log("previousDetailsCompt");
+
         // console.log(previousDetailsComp[key]);
+
+        // initialising 'previousDetailsCompData' variable to store the data of 'previousDetailsComp[key].component_data'
         const previousDetailsCompData = previousDetailsComp[key].component_data;
         compItemsArray = [];
+
+        // using for-in loops to iterate the array of object datas of 'previousDetailsCompData' 
         for (const keyData in previousDetailsCompData) {
 
-            // console.log("---------------------------------------------");
             // console.log(previousDetailsCompData[keyData]);
-            // console.log("---------------------------------------------");
 
+            // storing the 'previousDetailsCompData' values in 'compItems'
             compItems = (
 
                 <tr>
@@ -52,10 +61,13 @@ export default function Previous() {
                 </tr>
 
             )
+
+            // pushing the values of 'compItems' into 'compItemsArray'
             compItemsArray.push(compItems);
 
         }
         
+        // creating listItem variabe to store previousDetailsComp data and for displaying in the accordion header
         var listItem = (
         <Accordion.Item eventKey= {key}>
                 {/* {counter += 1} */}
@@ -92,13 +104,14 @@ export default function Previous() {
         );
       
         // console.log(compItemsArray);
-        // console.log("printing key: " + key + " counter=" + counter);
 
+        // pushing the 'listItem' values in the 'allInvoices' array
         allInvoices.push(listItem);
            
     }
-    // console.log("------------**----------**-------------");
     // console.log(allInvoices);
+
+    // storing values in 'component'
     component = (
 
         <div className="container">
@@ -109,6 +122,8 @@ export default function Previous() {
         </div>
     )
 
+
+    // checking if there is any dues or not
     var payButton ;
     if (allInvoices.length === 0) {
         payButton = <h3 className="heading">there is no Previous Dues</h3>;
