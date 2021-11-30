@@ -13,7 +13,17 @@ export default function Login() {
     const [studentid, setstudentid] = useState('');
     const [OTP, setOTP] = useState('');
     const history = useHistory();
-    
+    //   const [text, settext] = useState('');
+    //   String(text)
+    // const textChange=()=>{
+    //   if(text.length>0)
+    //   {
+    //     setstyling({display: 'block'});
+    //   }
+    //   }
+
+
+    //Function for verifying otp after clicking on the submit otp button via API
     const handleOnLogin = () => {
         axios.post("http://localhost:4000/verify-otp/", {
             studentid: studentid,
@@ -30,6 +40,8 @@ export default function Login() {
             console.log('error >>> ', error);
         });
     }
+
+    //Function for verifying student after clicking on send otp button via API
     const handleOnClick = (e) => {
         setstylingOt({ display: 'block' });
         e.preventDefault();
@@ -41,6 +53,8 @@ export default function Login() {
             console.error('error >>> ', error);
         });
     }
+
+    // Code for login module
     return (<div className="body" >
         <main className="d-flex align-items-center min-vh-100 py-3 py-md-0" >
             <div className="container" >

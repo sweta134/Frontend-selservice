@@ -1,8 +1,12 @@
+// Importing all the components required
+
 import React from 'react'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom'
 
+
+// Use of useHistory and history.push for moving from one component to another
 export default function Card() {
     const history = useHistory();
     const addOnClick = () => {
@@ -18,6 +22,8 @@ export default function Card() {
         history.push("/transaction")
     }
 
+
+    // Fetching value from api and setting the value to the required components
     const [currentValue, setCrrentValue] = useState([""]);
     const [previousValue, setPreviousValue] = useState([""]);
     const [upcomingValue, setUpcomingValue] = useState([""]);
@@ -26,27 +32,35 @@ export default function Card() {
 
     const getCurrentData = async () => {
 
+        // Calling the api for fetching the dashboard details
         const data = await axios.post(
             "http://localhost:4000/get_dashboard_details/"
         );
+        // console.log(data);
         setCrrentValue(data.data.Current_Due_Module);
         setPreviousValue(data.data.Previous_Due_Module);
         setUpcomingValue(data.data.Upcoming_Due_Module);
         setTotalPaymentValue(data.data.Total_payment_Module);
         setTotalCommitmentValue(data.data.Total_Commitment_module);
     };
-    
-    // console.log(totalCommitmentValue);
+    // console.log(currentValue);
+    // console.log(previousValue);
+    console.log(totalCommitmentValue);
+    // console.log(currentValue[0].CURRENT_DUE);
     
     useEffect(() => {
         getCurrentData();
     }, []);
 
 
+    
+
+
     return (
         <>
+            {/* Start of dashboard components */}
             <div className="compcard container">
-                
+              {/* Current dues component   */}
                 <div className="m-15 row">
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
@@ -65,6 +79,7 @@ export default function Card() {
                             </div>
                         </div>
                     </div>
+                    {/* Previous due component */}
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
                             <h5 className="card-title" />
@@ -82,6 +97,8 @@ export default function Card() {
                         </div>
                     </div>
                 </div>
+
+                {/* Upcoming Dues Component */}
                 <div className="m-15 row">
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
@@ -99,6 +116,8 @@ export default function Card() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Total Payment Components */}
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
                             <h5 className="card-title" />
@@ -115,6 +134,9 @@ export default function Card() {
                         </div>
                     </div>
                 </div>
+
+
+                {/* Total Commitment Component */}
                 <div className="m-15 d-flex row">
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
@@ -131,6 +153,8 @@ export default function Card() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Transaction History Component */}
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
                             <h5 className="card-title" />
