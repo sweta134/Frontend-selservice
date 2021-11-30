@@ -29,7 +29,7 @@ export default function Card() {
         const data = await axios.post(
             "http://localhost:4000/get_dashboard_details/"
         );
-        // console.log(data);
+        console.log(data);
         setCrrentValue(data.data.Current_Due_Module);
         setPreviousValue(data.data.Previous_Due_Module);
         setUpcomingValue(data.data.Upcoming_Due_Module);
@@ -38,7 +38,7 @@ export default function Card() {
     };
     // console.log(currentValue);
     // console.log(previousValue);
-    console.log(totalCommitmentValue);
+    //console.log(totalCommitmentValue);
     // console.log(currentValue[0].CURRENT_DUE);
     
     useEffect(() => {
