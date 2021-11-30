@@ -142,8 +142,8 @@ export default function Card() {
                             <p className="card-text">
                             {(totalPaymentValue[0].TOTAL_PAID_AMOUNT === null) ? "No Dues" : <>₹ {totalPaymentValue[0].TOTAL_PAID_AMOUNT}</>} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
-                                {/* <a className="card-link linkBtn">
-                                    VIEW DETAILS</a> */}
+                                <a className="card-link linkBtn">
+                                    VIEW DETAILS</a>
                             </div>
                             {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
@@ -160,8 +160,8 @@ export default function Card() {
                             <p className="card-text">
                                      {(totalCommitmentValue[0].TOTAL_COMMITMENT === null) ? "No Dues" : <>₹ {totalCommitmentValue[0].TOTAL_COMMITMENT}</>} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
-                                {/* <a className="card-link linkBtn">
-                                    VIEW DETAILS</a> */}
+                                <a className="card-link linkBtn">
+                                    VIEW DETAILS</a>
                             </div>
                             {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
