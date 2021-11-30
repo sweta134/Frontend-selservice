@@ -1,8 +1,12 @@
+// Importing all the components required
+
 import React from 'react'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom'
 
+
+// Use of useHistory and history.push for moving from one component to another
 export default function Card() {
     const history = useHistory();
     const addOnClick = () => {
@@ -18,6 +22,8 @@ export default function Card() {
         history.push("/transaction")
     }
 
+
+    // Fetching value from api and setting the value to the required components
     const [currentValue, setCrrentValue] = useState([""]);
     const [previousValue, setPreviousValue] = useState([""]);
     const [upcomingValue, setUpcomingValue] = useState([""]);
@@ -26,6 +32,7 @@ export default function Card() {
 
     const getCurrentData = async () => {
 
+        // Calling the api for fetching the dashboard details
         const data = await axios.post(
             "http://localhost:4000/get_dashboard_details/"
         );
@@ -46,40 +53,14 @@ export default function Card() {
     }, []);
 
 
-    // const getPreviousData = async () => {
-
-    //     const data = await axios.post(
-    //         "http://localhost:4000/get_dashboard_data/"
-    //     );
-    //     // console.log(data);
-    //     setPreviousValue(data.data.data);
-    // };
-    // // console.log(value);
     
-    // useEffect(() => {
-    //     getPreviousData();
-    // }, []);
-
-
-    // const getUpcomingData = async () => {
-
-    //     const data = await axios.post(
-    //         "http://localhost:4000/get_dashboard_data/"
-    //     );
-    //     // console.log(data);
-    //     setUpcomingValue(data.data.data);
-    // };
-    // // console.log(value);
-    
-    // useEffect(() => {
-    //     getUpcomingData();
-    // }, []);
 
 
     return (
         <>
+            {/* Start of dashboard components */}
             <div className="compcard container">
-                
+              {/* Current dues component   */}
                 <div className="m-15 row">
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
@@ -89,7 +70,7 @@ export default function Card() {
                                 CURRENT DUES
                             </h6>
                             <p className="card-text">
-                                 {(currentValue[0].CURRENT_DUE === null) ? "No Due" : <>₹ {currentValue[0].CURRENT_DUE}</>}</p>
+                                 {(currentValue[0].CURRENT_DUE === null) ? "No Dues" : <>₹ {currentValue[0].CURRENT_DUE}</>}</p>
 
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClick}>
@@ -98,6 +79,7 @@ export default function Card() {
                             </div>
                         </div>
                     </div>
+                    {/* Previous due component */}
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
                             <h5 className="card-title" />
@@ -106,7 +88,7 @@ export default function Card() {
                                 PREVIOUS DUES
                             </h6>
                             <p className="card-text">
-                            {(previousValue[0].PREVIOUS_DUE === null) ? "No Due" : <>₹ {previousValue[0].PREVIOUS_DUE}</>} </p>
+                            {(previousValue[0].PREVIOUS_DUE === null) ? "No Dues" : <>₹ {previousValue[0].PREVIOUS_DUE}</>} </p>
                             <div className="d-flex flex-row justify-content-between align-items-center mb-15">
                                 <a className="card-link linkBtn" onClick={addOnClickPrevious}>
                                     VIEW DETAILS</a>
@@ -115,6 +97,8 @@ export default function Card() {
                         </div>
                     </div>
                 </div>
+
+                {/* Upcoming Dues Component */}
                 <div className="m-15 row">
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
@@ -132,6 +116,8 @@ export default function Card() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Total Payment Components */}
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
                             <h5 className="card-title" />
@@ -149,6 +135,9 @@ export default function Card() {
                         </div>
                     </div>
                 </div>
+
+
+                {/* Total Commitment Component */}
                 <div className="m-15 d-flex row">
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
@@ -166,6 +155,8 @@ export default function Card() {
                             {/* <a href="#" class="card-link">Another link</a> */}
                         </div>
                     </div>
+
+                    {/* Transaction History Component */}
                     <div className="card col" style={{ width: 18 + 'rem' }}>
                         <div className="card-body d-flex flex-column">
                             <h5 className="card-title" />

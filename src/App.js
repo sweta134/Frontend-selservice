@@ -18,7 +18,7 @@ import Header from './components/Header';
 // import Navbar from './components/Navbar';
 import Login from './components/Login';
 
-
+// Importing the required react components which are being assembled from here
 import './components/CSS/bootstrap.min.css';
 import Dashboard from './components/Dashboard';
 import Footer from './components/Footer';
@@ -43,6 +43,8 @@ function App() {
         </Route>
         </Switch>
       </Router> */}
+
+      {/* This part is working as routing from the frontend */}
         <Switch>
           <Route path="/dashboard">
             <Header />
